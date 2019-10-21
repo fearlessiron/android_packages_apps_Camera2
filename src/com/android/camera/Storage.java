@@ -499,9 +499,17 @@ public class Storage {
             return UNAVAILABLE;
         }
 
+        Log.d(TAG, "External storage directory=" + DIRECTORY);
         File dir = new File(DIRECTORY);
-        dir.mkdirs();
-        if (!dir.isDirectory() || !dir.canWrite()) {
+        if (!dir.mkdirs()) {
+            Log.d(TAG, "External storage directory: mkdirs() returned false");
+        }
+        if (!dir.isDirectory()) {
+            Log.d(TAG, "External storage directory: isDirectory() returned false");
+            return UNAVAILABLE;
+        }
+        if (!dir.canWrite()) {
+            Log.d(TAG, "External storage directory: canWrite() returned false");
             return UNAVAILABLE;
         }
 
